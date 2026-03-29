@@ -20,3 +20,11 @@ def detect_outliers(df: pd.DataFrame, column="Score"):
     print("\nOutliers:")
     print(outliers)
     return outliers
+
+def group_by_city(df: pd.DataFrame):
+    grouped = df.groupby("City")["Score"].mean().reset_index()
+    os.makedirs("data/processed", exist_ok=True)
+    grouped.to_csv("data/processed/analysis.csv", index=False)
+    print("\nGrouped results saved in data/processed/analysis.csv")
+    print(grouped.head())
+    return grouped
