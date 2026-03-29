@@ -5,7 +5,7 @@ import os
 
 fake = Faker()
 
-def generate_friend_csv(path="data/raw/friend.csv"):
+def generate_friend_csv(path="data/raw/friends.csv"):
     fruits = ["Banana", "Apple", "Orange", "Peach", "Pineapple", "Watermelon", "Melon"]
     data = []
 
@@ -19,7 +19,23 @@ def generate_friend_csv(path="data/raw/friend.csv"):
     df = pd.DataFrame(data)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     df.to_csv(path, index=False)
+    return df
 
+def generate_students_csv(path="data/raw/students.csv"):
+    data = []
+
+    for _ in range(5000):
+        data.append({
+            "Name": fake.name(),
+            "Age": random.randint(10, 18),
+            "City": fake.city(),
+            "Score": random.randint(1, 12),
+        })
+
+    df = pd.DataFrame(data)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    df.to_csv(path, index=False)
+    return df
 
 if __name__ == "__main__":
-    generate_friend_csv(path="../data/raw/friend.csv")
+    generate_friend_csv(path="../data/raw/friends.csv")
