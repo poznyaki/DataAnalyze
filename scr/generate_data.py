@@ -20,7 +20,7 @@ def generate_friend_csv(path="data/raw/friends.csv"):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     df.to_csv(path, index=False)
     return df
-
+random.seed(99)
 def generate_students_csv(path="data/raw/students.csv"):
     data = []
 
@@ -38,4 +38,4 @@ def generate_students_csv(path="data/raw/students.csv"):
     return df
 
 if __name__ == "__main__":
-    generate_friend_csv(path="../data/raw/friends.csv")
+    generate_students_csv(path="../data/raw/students.csv")
