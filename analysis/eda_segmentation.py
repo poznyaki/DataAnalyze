@@ -34,7 +34,16 @@ if "Performance" in df.columns:
     print("\nКластер та Перфоманс")
     print(pd.crosstab(df["Cluster"], df["Performance"]))
 
-df["Recommendation"] = df["Cluster"].apply(generate_recommendations)
+cluster_map = {
+    0: "Low",
+    1: "Medium",
+    2: "High",
+}
+
+df["Cluster"] = df["Cluster"].map(cluster_map)
+
+df["Recommendation"] = df.apply(
+    lambda x: generate_recommendations(x["Cluster"],x["Score"]), axis=1)
 
 print("\n Список рекомендацій:")
 print(df[
@@ -47,7 +56,10 @@ cluster_profile = df.groupby("Cluster")[
 ].mean()
 
 print(cluster_profile)
-segmentation_path = ""
+segmentation_path = "../data/processed/students_segmentation.csv"
+df.to_csv(segmentation_path, index=False)
+
+print(f"\n Сегментовані дані збережено в {segmentation_path}")
 
 
 
