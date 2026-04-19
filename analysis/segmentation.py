@@ -14,3 +14,9 @@ def prepare_features(df: pd.DataFrame):
         ]
     ]
     return features
+
+def scale_features(features: pd.DataFrame):
+    scaler = StandardScaler()
+    features = scaler.fit_transform(features)
+    return features
+

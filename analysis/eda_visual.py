@@ -2,10 +2,13 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scr.analysis import add_column
 
 path = "../data/raw/students.csv"
 df = pd.read_csv(path)
+df = add_column(df)
 df["Efficiency"] = df["Score"]/df["Hours_Study"]
+df.to_csv("../data/processed/students_with_features.csv", index=False)
 
 sns.set(style="whitegrid")
 plt.figure()
@@ -30,4 +33,3 @@ plt.title("Correlation Matrix")
 plt.show()
 
 # perf_df = pd.read_csv
-
