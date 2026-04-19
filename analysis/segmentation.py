@@ -20,3 +20,20 @@ def scale_features(features: pd.DataFrame):
     features = scaler.fit_transform(features)
     return features
 
+def find_optimal_k(features_scaled):
+    inertia = []
+    for k in range(1, 8):
+        kmeans = KMeans(n_clusters= k, random_state= 42)
+        kmeans.fit(features_scaled)
+        inertia.append(kmeans.inertia_)
+
+    return inertia
+
+def apply_kmeans(df: pd.DataFrame, features_scaled, n_clusters = 3):
+    kmeans = KMeans(n_clusters= n_clusters, random_state= 42)
+    df["Cluster"] = kmeans.fit_predict(features_scaled)
+
+    score = silhouette_score(features_scaled, df["Cluster"])
+    print(f"Silhouette score: {score}")
+
+    return df, kmeans
